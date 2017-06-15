@@ -1,0 +1,114 @@
+@model BusinessLogicLayer.Models.EnetIntervention
+
+@{
+    ViewBag.Title = "Intervention Details";
+}
+
+<h2>Intervention Details</h2>
+
+<div>
+    <h4>EnetIntervention</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateToPerform)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateToPerform)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MostRecentVisitDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MostRecentVisitDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LabourHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LabourHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Life)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Life)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnetClient.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnetClient.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnetDistrict.District)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnetDistrict.District)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnetUser.LoginName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnetUser.LoginName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnetInterventionType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnetInterventionType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnetUser1.LoginName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnetUser1.LoginName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InterventionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

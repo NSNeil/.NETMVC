@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="48e04d059c544124b83f8b85d75d6e11" Name="Diagram1">
+        <EntityTypeShape EntityType="EnetCareModel.EnetClient" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EnetCareModel.EnetDistrict" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EnetCareModel.EnetIntervention" Width="1.5" PointX="7.875" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EnetCareModel.EnetInterventionType" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EnetCareModel.EnetUser" Width="2.625" PointX="3.625" PointY="8.375" IsExpanded="true" />
+        <AssociationConnector Association="EnetCareModel.FK_Client_District" ManuallyRouted="false" />
+        <AssociationConnector Association="EnetCareModel.FK_Intervention_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="EnetCareModel.FK_Intervention_District" ManuallyRouted="false" />
+        <AssociationConnector Association="EnetCareModel.FK_User_District" ManuallyRouted="false" />
+        <AssociationConnector Association="EnetCareModel.FK_Intervention_ApprovedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="EnetCareModel.FK_Intervention_InterventionType" ManuallyRouted="false" />
+        <AssociationConnector Association="EnetCareModel.FK_Intervention_ProposedBy" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

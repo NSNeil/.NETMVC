@@ -1,0 +1,42 @@
+﻿@model BusinessLogicLayer.Models.EnetInterventionType
+
+@{
+    ViewBag.Title = "Intervention Details";
+}
+
+<h2>Intervention Details</h2>
+
+<div>
+    <h4>EnetInterventionType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LabourHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LabourHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InterventionTypeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

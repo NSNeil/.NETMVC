@@ -1,0 +1,148 @@
+@using BusinessLogicLayer
+@using BusinessLogicLayer.Models
+@model BusinessLogicLayer.Models.EnetIntervention
+@{
+    ViewBag.Title = "Intervention Edit";
+}
+@*@ViewBag.ErrorMsg*@
+<h2>Intervention Edit</h2>
+<script type="text/javascript">
+    function ChangeState() {
+        switch ($("#StateDDL option:selected").text()) {
+            case 'Proposed':
+                $('input[name=State]').val('0');
+                break;
+            case 'Approved':
+                $('input[name=State]').val('1');
+                break;
+            case 'Complete':
+                $('input[name=State]').val('2');
+                break;
+            case 'Cancel':
+                $('input[name=State]').val('3');
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>EnetIntervention</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.InterventionId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.EnetInterventionType.Name, "InterventionType", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.InterventionTypeId)
+                @Html.HiddenFor(model => model.InterventionTypeId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClientId, "Client", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.EnetClient.Name)
+                @Html.HiddenFor(model => model.ClientId)
+                @*@Html.DropDownList("ClientId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DistrictId, "District", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.EnetDistrict.District)
+                @Html.HiddenFor(model => model.DistrictId)
+
+                @*@Html.DropDownList("DistrictId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProposedBy, "ProposedBy", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.EnetUser1.Name)
+                @Html.HiddenFor(model => model.ProposedBy)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApprovedBy, "ApprovedBy", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.EnetUser.Name)
+                @Html.HiddenFor(model => model.ApprovedBy)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateToPerform, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.DateToPerform)
+                @Html.HiddenFor(model => model.DateToPerform)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MostRecentVisitDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MostRecentVisitDate, new { htmlAttributes = new { @class = "date-picker" } })
+                @Html.ValidationMessageFor(model => model.MostRecentVisitDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LabourHours, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LabourHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LabourHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Life, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Life, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Life, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    List<State> states=new List<State>();
+                    foreach (State state in Enum.GetValues(typeof(State)))
+                    {
+                        states.Add(state);
+                    }
+                    SelectList stateList = new SelectList(states, "Proposed");
+                }
+                @Html.DropDownList("StateDDL", @stateList, new { @class = "form-control", @onchange = "ChangeState()" })
+                @Html.HiddenFor(model => model.State)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <font color="red">@ViewBag.ErrorMsg</font>
+        <br /><br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+                    }
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

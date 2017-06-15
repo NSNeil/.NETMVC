@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNet.Identity
+<h3>
+    <center>User Home Page</center>
+</h3>
+<hr />
+<h4>
+    Hello @Html.Raw(User.Identity.GetUserName())!
+</h4>
+<hr />
+
+@{
+    if (Request.IsAuthenticated && User.IsInRole("SiteEngineer"))
+    {
+        <h4>Site Engineer Dashboard</h4>
+    }
+    else if (Request.IsAuthenticated && User.IsInRole("Manager"))
+    {
+        <h4>Manager Dashboard</h4>
+    }
+    else if (Request.IsAuthenticated && User.IsInRole("Accountant"))
+    {
+        <h4>Accountant Dashboard</h4>
+    }
+}
+
+<ul>
+    @{
+        if (Request.IsAuthenticated && User.IsInRole("SiteEngineer"))
+        {
+            <center>
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "EnetClients")'">All Clients</button>
+                <button style="margin: 20px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "EnetInterventions")'">Interventions</button>
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create", "EnetClients")'">Create Client</button>
+                @*<li>@Html.ActionLink("All Clients", "Index", "EnetClients")</li>
+                <li>@Html.ActionLink("Interventions", "Index", "EnetInterventions")</li>
+                <li>@Html.ActionLink("Create Client", "Create", "EnetClients")</li>*@
+            </center>
+        }
+        else if (Request.IsAuthenticated && User.IsInRole("Manager"))
+        {
+            <center>
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "EnetInterventions")'">Interventions</button>
+            </center>
+        }
+        else if (Request.IsAuthenticated && User.IsInRole("Accountant"))
+        {
+            <center>
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("ListUsers", "EnetAccountant")'">List all Site Engineers and Managers</button>
+
+                @*<li><p>@Html.ActionLink("List all Site Engineers and Managers", "ListUsers", "EnetAccountant")</p></li>*@
+                <hr />
+                <h4>Reports</h4>
+                <button style="margin: 10px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("GetTotalForEngineer", "EnetAccountant")'">Total cost/hours for engineer</button><br />
+                <button style="margin: 10px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("GetAverageForEngineer", "EnetAccountant")'">Average cost/hours for engineer</button><br />
+                <button style="margin: 10px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("GetTotalCostForEachDistrict", "EnetAccountant")'">Total cost for district and global cost</button><br />
+                <button style="margin: 10px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("GetMonthlyCosts2017", "EnetAccountant")'">Total monthly costs 2017</button>
+                <button style="margin: 10px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("GetMonthlyCosts2018", "EnetAccountant")'">Total monthly costs 2018</button>
+                <button style="margin: 10px;" type="button" class="btn btn-default" onclick="location.href='@Url.Action("GetMonthlyCosts2019", "EnetAccountant")'">Total monthly costs 2019</button>
+
+                @*<li>
+
+                    <p>Reports</p>
+
+                    <ul>
+                        <li>@Html.ActionLink("Total cost/hours for engineer", "GetTotalForEngineer", "EnetAccountant")</li>
+                        <li>@Html.ActionLink("Average cost/hours for engineer", "GetAverageForEngineer", "EnetAccountant") </li>
+                        <li>@Html.ActionLink("Total cost for district and global cost", "GetTotalCostForEachDistrict", "EnetAccountant")</li>
+                        <li>@Html.ActionLink("Total monthly costs", "GetMonthlyCosts", "EnetAccountant")</li>
+                    </ul>
+                </li>*@
+            </center>
+        }
+    }
+
+</ul>
+

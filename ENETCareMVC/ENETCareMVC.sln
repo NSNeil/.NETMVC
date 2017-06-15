@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENETCareWebApp", "ENETCareWebApp\ENETCareWebApp.csproj", "{01D288F6-D20D-4815-A6B1-68BA5A1136E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8} = {BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENETCare.Tests", "ENETCare.Tests\ENETCare.Tests.csproj", "{47F6E6F0-BBC5-4048-AC41-8FAEC221EFE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAccessLayer", "DatabaseAccessLayer\DatabaseAccessLayer.csproj", "{9AF77D9F-786C-4877-8D54-D9179E9FF990}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENETCare.IntegrationTests", "ENETCare.IntegrationTests\ENETCare.IntegrationTests.csproj", "{7C9C9C62-C812-4A2C-B6EE-418ACD5B0710}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01D288F6-D20D-4815-A6B1-68BA5A1136E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D288F6-D20D-4815-A6B1-68BA5A1136E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D288F6-D20D-4815-A6B1-68BA5A1136E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D288F6-D20D-4815-A6B1-68BA5A1136E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB0854BF-5B6D-4B5F-83D5-21B7B80B70F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F6E6F0-BBC5-4048-AC41-8FAEC221EFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F6E6F0-BBC5-4048-AC41-8FAEC221EFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F6E6F0-BBC5-4048-AC41-8FAEC221EFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F6E6F0-BBC5-4048-AC41-8FAEC221EFE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF77D9F-786C-4877-8D54-D9179E9FF990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF77D9F-786C-4877-8D54-D9179E9FF990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF77D9F-786C-4877-8D54-D9179E9FF990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF77D9F-786C-4877-8D54-D9179E9FF990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9C9C62-C812-4A2C-B6EE-418ACD5B0710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9C9C62-C812-4A2C-B6EE-418ACD5B0710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9C9C62-C812-4A2C-B6EE-418ACD5B0710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9C9C62-C812-4A2C-B6EE-418ACD5B0710}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

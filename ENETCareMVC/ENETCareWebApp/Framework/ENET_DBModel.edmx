@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ENETCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ENET_Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="District" Type="nchar" MaxLength="100" />
+          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Address" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ENET_District">
+          <Key>
+            <PropertyRef Name="District" />
+          </Key>
+          <Property Name="District" Type="nchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENET_Intervention">
+          <Key>
+            <PropertyRef Name="InterventionId" />
+          </Key>
+          <Property Name="InterventionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InterventionTypeId" Type="int" />
+          <Property Name="ProposedBy" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="LabourHours" Type="int" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DateToPerform" Type="nchar" MaxLength="100" />
+          <Property Name="State" Type="nchar" MaxLength="10" />
+          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="Note" Type="nchar" MaxLength="100" />
+          <Property Name="Life" Type="float" />
+          <Property Name="MostRecentVisitDate" Type="nchar" MaxLength="100" />
+          <Property Name="District" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ENET_InterventionType">
+          <Key>
+            <PropertyRef Name="InterventionTypeId" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="LabourHours" Type="int" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="InterventionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENET_Manager">
+          <Key>
+            <PropertyRef Name="ManagerId" />
+          </Key>
+          <Property Name="ManagerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="District" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaxCost" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MaxHours" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENET_SiteEngineer">
+          <Key>
+            <PropertyRef Name="SiteEngineerId" />
+          </Key>
+          <Property Name="SiteEngineerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="District" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaxCost" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MaxHours" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENET_State">
+          <Key>
+            <PropertyRef Name="State" />
+          </Key>
+          <Property Name="State" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENET_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Client_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Client" Type="Self.ENET_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_Client">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_ApprovedBy">
+          <End Role="ENET_User" Type="Self.ENET_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_Client">
+          <End Role="ENET_Client" Type="Self.ENET_Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="0..1" />
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_InterventionType">
+          <End Role="ENET_InterventionType" Type="Self.ENET_InterventionType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_InterventionType">
+              <PropertyRef Name="InterventionTypeId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="InterventionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_ProposedBy">
+          <End Role="ENET_SiteEngineer" Type="Self.ENET_SiteEngineer" Multiplicity="0..1" />
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_SiteEngineer">
+              <PropertyRef Name="SiteEngineerId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="ProposedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_State">
+          <End Role="ENET_State" Type="Self.ENET_State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_State">
+              <PropertyRef Name="State" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manager_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="1" />
+          <End Role="ENET_Manager" Type="Self.ENET_Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_Manager">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manager_User">
+          <End Role="ENET_User" Type="Self.ENET_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Manager" Type="Self.ENET_Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ENET_Manager">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SiteEngineer_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_SiteEngineer" Type="Self.ENET_SiteEngineer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_SiteEngineer">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SiteEngineer_User">
+          <End Role="ENET_User" Type="Self.ENET_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_SiteEngineer" Type="Self.ENET_SiteEngineer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ENET_SiteEngineer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ENETCareModelStoreContainer">
+          <EntitySet Name="ENET_Client" EntityType="Self.ENET_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_District" EntityType="Self.ENET_District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_Intervention" EntityType="Self.ENET_Intervention" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_InterventionType" EntityType="Self.ENET_InterventionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_Manager" EntityType="Self.ENET_Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_SiteEngineer" EntityType="Self.ENET_SiteEngineer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_State" EntityType="Self.ENET_State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ENET_User" EntityType="Self.ENET_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Client_District" Association="Self.FK_Client_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_Client" EntitySet="ENET_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_ApprovedBy" Association="Self.FK_Intervention_ApprovedBy">
+            <End Role="ENET_User" EntitySet="ENET_User" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_Client" Association="Self.FK_Intervention_Client">
+            <End Role="ENET_Client" EntitySet="ENET_Client" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_District" Association="Self.FK_Intervention_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_InterventionType" Association="Self.FK_Intervention_InterventionType">
+            <End Role="ENET_InterventionType" EntitySet="ENET_InterventionType" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_ProposedBy" Association="Self.FK_Intervention_ProposedBy">
+            <End Role="ENET_SiteEngineer" EntitySet="ENET_SiteEngineer" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_State" Association="Self.FK_Intervention_State">
+            <End Role="ENET_State" EntitySet="ENET_State" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manager_District" Association="Self.FK_Manager_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_Manager" EntitySet="ENET_Manager" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manager_User" Association="Self.FK_Manager_User">
+            <End Role="ENET_User" EntitySet="ENET_User" />
+            <End Role="ENET_Manager" EntitySet="ENET_Manager" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SiteEngineer_District" Association="Self.FK_SiteEngineer_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_SiteEngineer" EntitySet="ENET_SiteEngineer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SiteEngineer_User" Association="Self.FK_SiteEngineer_User">
+            <End Role="ENET_User" EntitySet="ENET_User" />
+            <End Role="ENET_SiteEngineer" EntitySet="ENET_SiteEngineer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ENETCareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ENET_Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="District" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ENET_District" Relationship="Self.FK_Client_District" FromRole="ENET_Client" ToRole="ENET_District" />
+          <NavigationProperty Name="ENET_Intervention" Relationship="Self.FK_Intervention_Client" FromRole="ENET_Client" ToRole="ENET_Intervention" />
+        </EntityType>
+        <EntityType Name="ENET_District">
+          <Key>
+            <PropertyRef Name="District" />
+          </Key>
+          <Property Name="District" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ENET_Client" Relationship="Self.FK_Client_District" FromRole="ENET_District" ToRole="ENET_Client" />
+          <NavigationProperty Name="ENET_Intervention" Relationship="Self.FK_Intervention_District" FromRole="ENET_District" ToRole="ENET_Intervention" />
+          <NavigationProperty Name="ENET_Manager" Relationship="Self.FK_Manager_District" FromRole="ENET_District" ToRole="ENET_Manager" />
+          <NavigationProperty Name="ENET_SiteEngineer" Relationship="Self.FK_SiteEngineer_District" FromRole="ENET_District" ToRole="ENET_SiteEngineer" />
+        </EntityType>
+        <EntityType Name="ENET_Intervention">
+          <Key>
+            <PropertyRef Name="InterventionId" />
+          </Key>
+          <Property Name="InterventionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InterventionTypeId" Type="Int32" />
+          <Property Name="ProposedBy" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="LabourHours" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DateToPerform" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Life" Type="Double" />
+          <Property Name="MostRecentVisitDate" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ENET_Client" Relationship="Self.FK_Intervention_Client" FromRole="ENET_Intervention" ToRole="ENET_Client" />
+          <NavigationProperty Name="ENET_District" Relationship="Self.FK_Intervention_District" FromRole="ENET_Intervention" ToRole="ENET_District" />
+          <NavigationProperty Name="ENET_User" Relationship="Self.FK_Intervention_ApprovedBy" FromRole="ENET_Intervention" ToRole="ENET_User" />
+          <NavigationProperty Name="ENET_InterventionType" Relationship="Self.FK_Intervention_InterventionType" FromRole="ENET_Intervention" ToRole="ENET_InterventionType" />
+          <NavigationProperty Name="ENET_SiteEngineer" Relationship="Self.FK_Intervention_ProposedBy" FromRole="ENET_Intervention" ToRole="ENET_SiteEngineer" />
+          <NavigationProperty Name="ENET_State" Relationship="Self.FK_Intervention_State" FromRole="ENET_Intervention" ToRole="ENET_State" />
+        </EntityType>
+        <EntityType Name="ENET_InterventionType">
+          <Key>
+            <PropertyRef Name="InterventionTypeId" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LabourHours" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="InterventionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ENET_Intervention" Relationship="Self.FK_Intervention_InterventionType" FromRole="ENET_InterventionType" ToRole="ENET_Intervention" />
+        </EntityType>
+        <EntityType Name="ENET_Manager">
+          <Key>
+            <PropertyRef Name="ManagerId" />
+          </Key>
+          <Property Name="ManagerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="District" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MaxCost" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MaxHours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ENET_District" Relationship="Self.FK_Manager_District" FromRole="ENET_Manager" ToRole="ENET_District" />
+          <NavigationProperty Name="ENET_User" Relationship="Self.FK_Manager_User" FromRole="ENET_Manager" ToRole="ENET_User" />
+        </EntityType>
+        <EntityType Name="ENET_SiteEngineer">
+          <Key>
+            <PropertyRef Name="SiteEngineerId" />
+          </Key>
+          <Property Name="SiteEngineerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="District" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MaxCost" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MaxHours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ENET_District" Relationship="Self.FK_SiteEngineer_District" FromRole="ENET_SiteEngineer" ToRole="ENET_District" />
+          <NavigationProperty Name="ENET_Intervention" Relationship="Self.FK_Intervention_ProposedBy" FromRole="ENET_SiteEngineer" ToRole="ENET_Intervention" />
+          <NavigationProperty Name="ENET_User" Relationship="Self.FK_SiteEngineer_User" FromRole="ENET_SiteEngineer" ToRole="ENET_User" />
+        </EntityType>
+        <EntityType Name="ENET_State">
+          <Key>
+            <PropertyRef Name="State" />
+          </Key>
+          <Property Name="State" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ENET_Intervention" Relationship="Self.FK_Intervention_State" FromRole="ENET_State" ToRole="ENET_Intervention" />
+        </EntityType>
+        <EntityType Name="ENET_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ENET_Intervention" Relationship="Self.FK_Intervention_ApprovedBy" FromRole="ENET_User" ToRole="ENET_Intervention" />
+          <NavigationProperty Name="ENET_Manager" Relationship="Self.FK_Manager_User" FromRole="ENET_User" ToRole="ENET_Manager" />
+          <NavigationProperty Name="ENET_SiteEngineer" Relationship="Self.FK_SiteEngineer_User" FromRole="ENET_User" ToRole="ENET_SiteEngineer" />
+        </EntityType>
+        <Association Name="FK_Client_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Client" Type="Self.ENET_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_Client">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_Client">
+          <End Role="ENET_Client" Type="Self.ENET_Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="0..1" />
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manager_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="1" />
+          <End Role="ENET_Manager" Type="Self.ENET_Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_Manager">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SiteEngineer_District">
+          <End Role="ENET_District" Type="Self.ENET_District" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_SiteEngineer" Type="Self.ENET_SiteEngineer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_District">
+              <PropertyRef Name="District" />
+            </Principal>
+            <Dependent Role="ENET_SiteEngineer">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_ApprovedBy">
+          <End Role="ENET_User" Type="Self.ENET_User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_InterventionType">
+          <End Role="ENET_InterventionType" Type="Self.ENET_InterventionType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_InterventionType">
+              <PropertyRef Name="InterventionTypeId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="InterventionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_ProposedBy">
+          <End Role="ENET_SiteEngineer" Type="Self.ENET_SiteEngineer" Multiplicity="0..1" />
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_SiteEngineer">
+              <PropertyRef Name="SiteEngineerId" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="ProposedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Intervention_State">
+          <End Role="ENET_State" Type="Self.ENET_State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Intervention" Type="Self.ENET_Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_State">
+              <PropertyRef Name="State" />
+            </Principal>
+            <Dependent Role="ENET_Intervention">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manager_User">
+          <End Role="ENET_User" Type="Self.ENET_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_Manager" Type="Self.ENET_Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ENET_Manager">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SiteEngineer_User">
+          <End Role="ENET_User" Type="Self.ENET_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENET_SiteEngineer" Type="Self.ENET_SiteEngineer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENET_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ENET_SiteEngineer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ENETCareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ENET_Client" EntityType="Self.ENET_Client" />
+          <EntitySet Name="ENET_District" EntityType="Self.ENET_District" />
+          <EntitySet Name="ENET_Intervention" EntityType="Self.ENET_Intervention" />
+          <EntitySet Name="ENET_InterventionType" EntityType="Self.ENET_InterventionType" />
+          <EntitySet Name="ENET_Manager" EntityType="Self.ENET_Manager" />
+          <EntitySet Name="ENET_SiteEngineer" EntityType="Self.ENET_SiteEngineer" />
+          <EntitySet Name="ENET_State" EntityType="Self.ENET_State" />
+          <EntitySet Name="ENET_User" EntityType="Self.ENET_User" />
+          <AssociationSet Name="FK_Client_District" Association="Self.FK_Client_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_Client" EntitySet="ENET_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_Client" Association="Self.FK_Intervention_Client">
+            <End Role="ENET_Client" EntitySet="ENET_Client" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_District" Association="Self.FK_Intervention_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manager_District" Association="Self.FK_Manager_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_Manager" EntitySet="ENET_Manager" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SiteEngineer_District" Association="Self.FK_SiteEngineer_District">
+            <End Role="ENET_District" EntitySet="ENET_District" />
+            <End Role="ENET_SiteEngineer" EntitySet="ENET_SiteEngineer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_ApprovedBy" Association="Self.FK_Intervention_ApprovedBy">
+            <End Role="ENET_User" EntitySet="ENET_User" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_InterventionType" Association="Self.FK_Intervention_InterventionType">
+            <End Role="ENET_InterventionType" EntitySet="ENET_InterventionType" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_ProposedBy" Association="Self.FK_Intervention_ProposedBy">
+            <End Role="ENET_SiteEngineer" EntitySet="ENET_SiteEngineer" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Intervention_State" Association="Self.FK_Intervention_State">
+            <End Role="ENET_State" EntitySet="ENET_State" />
+            <End Role="ENET_Intervention" EntitySet="ENET_Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manager_User" Association="Self.FK_Manager_User">
+            <End Role="ENET_User" EntitySet="ENET_User" />
+            <End Role="ENET_Manager" EntitySet="ENET_Manager" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SiteEngineer_User" Association="Self.FK_SiteEngineer_User">
+            <End Role="ENET_User" EntitySet="ENET_User" />
+            <End Role="ENET_SiteEngineer" EntitySet="ENET_SiteEngineer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ENETCareModelStoreContainer" CdmEntityContainer="ENETCareEntities">
+          <EntitySetMapping Name="ENET_Client">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_Client">
+              <MappingFragment StoreEntitySet="ENET_Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_District">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_District">
+              <MappingFragment StoreEntitySet="ENET_District">
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_Intervention">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_Intervention">
+              <MappingFragment StoreEntitySet="ENET_Intervention">
+                <ScalarProperty Name="InterventionId" ColumnName="InterventionId" />
+                <ScalarProperty Name="InterventionTypeId" ColumnName="InterventionTypeId" />
+                <ScalarProperty Name="ProposedBy" ColumnName="ProposedBy" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="LabourHours" ColumnName="LabourHours" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="DateToPerform" ColumnName="DateToPerform" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Life" ColumnName="Life" />
+                <ScalarProperty Name="MostRecentVisitDate" ColumnName="MostRecentVisitDate" />
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_InterventionType">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_InterventionType">
+              <MappingFragment StoreEntitySet="ENET_InterventionType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LabourHours" ColumnName="LabourHours" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="InterventionTypeId" ColumnName="InterventionTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_Manager">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_Manager">
+              <MappingFragment StoreEntitySet="ENET_Manager">
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="MaxCost" ColumnName="MaxCost" />
+                <ScalarProperty Name="MaxHours" ColumnName="MaxHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_SiteEngineer">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_SiteEngineer">
+              <MappingFragment StoreEntitySet="ENET_SiteEngineer">
+                <ScalarProperty Name="SiteEngineerId" ColumnName="SiteEngineerId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="MaxCost" ColumnName="MaxCost" />
+                <ScalarProperty Name="MaxHours" ColumnName="MaxHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_State">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_State">
+              <MappingFragment StoreEntitySet="ENET_State">
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENET_User">
+            <EntityTypeMapping TypeName="ENETCareModel.ENET_User">
+              <MappingFragment StoreEntitySet="ENET_User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

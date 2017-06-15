@@ -1,0 +1,36 @@
+﻿@model BusinessLogicLayer.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="align: center"><font size="4">Password:</font></dt>
+        <dd>
+            @*[
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]*@
+            @if (Model.HasPassword)
+            {
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("ChangePassword")'">Change your password</button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("SetPassword")'">Set your password</button>
+            }
+        </dd>
+       
+    </dl>
+</div>

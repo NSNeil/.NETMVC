@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BusinessLogicLayer.Models.EnetUser>
+
+@{
+    ViewBag.Title = "Engineers and Managers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Engineers and Managers</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnetDistrict.District)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxHours)
+        </td>
+        <td>
+            @Html.ActionLink(item.EnetDistrict.District, "EditUser", new { id = item.UserId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BusinessLogicLayer.Models.EnetDistrict>
+
+@{
+    ViewBag.Title = "District Index";
+}
+
+<h2>District Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create")'">Create New</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.District)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.District)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DistrictId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DistrictId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DistrictId })
+        </td>
+    </tr>
+}
+
+</table>

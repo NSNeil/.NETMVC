@@ -1,0 +1,74 @@
+﻿body {
+    background-color: white;
+}
+
+h1 {
+    font-family: verdana;
+    text-align: center;
+    white-space: nowrap;
+}
+
+h2 {
+    font-family: verdana;
+    font-weight: normal;
+    position: relative;
+    left: 30px;
+}
+
+p {
+    font-family: verdana;
+}
+
+
+#MainMenu-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+
+}
+
+#MainMenu-li-p {
+	display: block;
+	color: white;
+	text-align: center;
+    font-family: verdana;
+	font-size: 14pt;
+	padding: 14px 16px;
+	text-decoration: none;
+	vertical-align: middle;
+    float: left;
+}
+
+.MainMenu-li-a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    font-family: verdana;
+    font-size: 14pt;
+    text-decoration: none;
+	vertical-align: middle;
+    float: left;
+}
+
+.MainMenu-li-aa {
+    display: block;
+    color: white;
+    text-align: center;
+    font-family: verdana;
+    font-size: 14pt;
+    text-decoration: none;
+	vertical-align: middle;
+    float: left;
+}
+
+.MainMenu-li-a:hover:not(.active) {
+    background-color: #111;
+}
+
+
+.active {
+    background-color: #4CAF50;
+}

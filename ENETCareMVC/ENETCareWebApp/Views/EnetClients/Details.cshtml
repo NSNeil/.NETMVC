@@ -1,0 +1,42 @@
+﻿@model BusinessLogicLayer.Models.EnetClient
+
+@{
+    ViewBag.Title = "Client Details";
+}
+
+<h2>Client Details</h2>
+
+<div>
+    <h4>EnetClient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnetDistrict.District)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnetDistrict.District)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClientId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

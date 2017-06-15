@@ -1,0 +1,199 @@
+@using System.Web.UI.WebControls
+@using BusinessLogicLayer.Models
+@model BusinessLogicLayer.Models.EnetIntervention
+
+@{
+    ViewBag.Title = "Create Intervention";
+}
+
+<h2>Create Intervention</h2>
+<script type="text/javascript">
+    function ChangeState() {
+        switch ($("#StateDDL option:selected").text()) {
+            case 'Proposed':
+                $('input[name=State]').val('0');
+                break;
+            case 'Approved':
+                $('input[name=State]').val('1');
+                $('input[name=ApprovedBy]').val(document.getElementById('CurrentUser').innerText);
+                break;
+            case 'Complete':
+                $('input[name=State]').val('2');
+                break;
+            case 'Cancel':
+                $('input[name=State]').val('3');
+                break;
+            default:
+                break;
+        }
+    }
+    function ChangeType() {
+        $('input[name=InterventionTypeId]').val($("#TypeDDL option:selected").val());
+    }
+    function ChangeClient() {
+        $('input[name=ClientId]').val($("#ClientDDL option:selected").val());
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>EnetIntervention</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.InterventionTypeId, "Intervention Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            
+            <div class="col-md-10">
+                <select class="form-control" id="TypeDDL" name="TypeDDL" onchange="ChangeType()">
+                    @{
+                        List<EnetInterventionType> types = (List<EnetInterventionType>) Session["CurrentInterventionTypes"];
+                        int i = 0;
+                        int firstId = types[0].InterventionTypeId;
+                        foreach (EnetInterventionType type in types)
+                        {
+                            if (i == 0)
+                            {
+                                <option selected ="selected" value=@type.InterventionTypeId>@type.Name</option>
+                            }
+                            else
+                            {
+                                <option value=@type.InterventionTypeId>@type.Name</option>
+                            }
+                            i++;
+                        }
+                    }
+                </select>
+                <input data-val="true" id="InterventionTypeId" name="InterventionTypeId" type="hidden" value=@firstId>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClientId, "Client", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="ClientDDL" name="ClientDDL" onchange="ChangeClient()">
+                    @{
+                        List<EnetClient> clients = (List<EnetClient>)Session["CurrentClients"];
+                        int k = 0;
+                        int firstCId = clients[0].ClientId;
+                        foreach (EnetClient client in clients)
+                        {
+                            if (k == 0)
+                            {
+                                <option selected="selected" value=@client.ClientId>@client.Name</option>
+                            }
+                            else
+                            {
+                                <option value=@client.ClientId>@client.Name</option>
+                            }
+                            k++;
+                        }
+                    }
+                </select>
+                <input data-val="true" id="ClientId" name="ClientId" type="hidden" value=@firstCId>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DistrictId, "District", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Session["CurrentDistrict"]
+                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                <input data-val="true" id="DistrictId" name="DistrictId" type="hidden" value=@Session["CurrentDistrictId"].ToString()>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProposedBy, "ProposedBy", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" id="CurrentUser">
+                @Session["CurrentSE"]
+                @{
+                    <input data-val="true" id="ProposedBy" name="ProposedBy" type="hidden" value=@Session["CurrentSEId"].ToString()>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input data-val="true" id="ApprovedBy" name="ApprovedBy" type="hidden" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateToPerform, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+                @Html.EditorFor(model => model.DateToPerform, new { htmlAttributes = new { @*@disabled = "disabled",*@ @class = "date-picker" } })
+                @Html.ValidationMessageFor(model => model.DateToPerform, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+               @{
+                    <input data-val="true" id="MostRecentVisitDate" name="MostRecentVisitDate" type="hidden" value=@DateTime.Now.ToShortDateString()>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LabourHours, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input data-val="true" id="LabourHours" name="LabourHours" type="text" maxlength="5">
+
+                @Html.ValidationMessageFor(model => model.LabourHours, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input data-val="true" id="Cost" name="Cost" type="text" maxlength="7">
+                @Html.ValidationMessageFor(model => model.Cost, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input data-val="true" id="Life" name="Life" type="hidden" value="1">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    List<State> states = new List<State>();
+                    foreach (State state in Enum.GetValues(typeof(State)))
+                    {
+                        states.Add(state);
+                    }
+                    SelectList stateList = new SelectList(states, "Proposed");
+                }
+                @Html.DropDownList("StateDDL", @stateList, new { @class = "form-control", @onchange = "ChangeState()" })
+                <input data-val="true" id="State" name="State" type="hidden" value="0">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input data-val="true" id="Note" name="Note" type="text" maxlength="99">
+                @Html.ValidationMessageFor(model => model.Note, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <br />
+        <font color="red">@ViewBag.ErrorMsg</font>
+        <br /><br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

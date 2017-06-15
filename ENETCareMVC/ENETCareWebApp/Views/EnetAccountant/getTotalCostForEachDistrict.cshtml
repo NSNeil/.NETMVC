@@ -1,0 +1,63 @@
+﻿@model BusinessLogicLayer.Models.AccountantViewModels
+@using System.Data;
+
+<h2>Report: Costs for each district, total worldwide cost</h2>
+
+@{ DataTable forDisplay = Model.ForDisplay;}
+
+@*<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+</style>
+<body>
+    <table>
+
+        <thead>
+            <tr>
+                @foreach (DataColumn col in forDisplay.Columns)
+            {
+                    <th>@col.ColumnName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in forDisplay.Rows)
+            {
+
+                <tr>
+                    @foreach (DataColumn col in forDisplay.Columns)
+                {
+
+                        <td>@row[col.ColumnName]</td>
+
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+    <table class="table">
+        <tr>
+            @foreach (DataColumn col in forDisplay.Columns)
+            {
+                <th>@col.ColumnName</th>
+            }
+        </tr>
+        @foreach (DataRow row in forDisplay.Rows)
+            {
+            <tr>
+                @foreach (DataColumn col in forDisplay.Columns)
+                {
+                    <td>@row[col.ColumnName]</td>
+                }
+            </tr>
+        }
+    </table>
+    <h4>Total Cost: <font color="blue">@Model.TotalForAllDistricts</font></h4>
+</body>

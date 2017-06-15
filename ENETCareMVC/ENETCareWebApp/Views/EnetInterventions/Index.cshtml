@@ -1,0 +1,128 @@
+@model IEnumerable<BusinessLogicLayer.Models.EnetIntervention>
+
+@*<script type="text/javascript">
+    alert('@User.Identity.IsAuthenticated');
+</script>*@
+
+@{
+    ViewBag.Title = "Intervention Index";
+}
+
+<h2>Intervention Index</h2>
+    @if (User.IsInRole("SiteEngineer"))
+    {
+        <p>
+            <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Create")'">Create New</button>
+            @*@Html.ActionLink("Create New", "Create")*@
+        </p>
+    }
+<table class="table">
+    <tr>
+        <th>
+            Date To Perform
+            @*@Html.DisplayNameFor(model => model.DateToPerform)*@
+        </th>
+        <th>
+            Most Recent Visit Date
+            @*@Html.DisplayNameFor(model => model.MostRecentVisitDate)*@
+        </th>
+        <th>
+            Labour Hours
+            @*@Html.DisplayNameFor(model => model.LabourHours)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Life)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            Client
+            @*@Html.DisplayNameFor(model => model.EnetClient.Name)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnetDistrict.District)
+        </th>
+        <th>
+            Approve By
+            @*@Html.DisplayNameFor(model => model.EnetUser.LoginName)*@
+        </th>
+        <th>
+            Intervention Type
+            @*@Html.DisplayNameFor(model => model.EnetInterventionType.Name)*@
+        </th>
+        <th>
+            Proposed By
+            @*@Html.DisplayNameFor(model => model.EnetUser1.LoginName)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateToPerform)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MostRecentVisitDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabourHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Life)
+        </td>
+        <td>
+            @item.State.ToString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnetClient.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnetDistrict.District)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnetUser.LoginName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnetInterventionType.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnetUser1.LoginName)
+        </td>
+        <td>
+            @{
+                if (User.IsInRole("SiteEngineer"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId });<br/>
+                    @Html.ActionLink("Details", "Details", new {id = item.InterventionId});<br />
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.InterventionId });*@
+                }
+                else
+                {
+                    if (@item.State.ToString() == "Proposed") {
+                        @Html.ActionLink("Approve", "Approve", new { id = item.InterventionId });<br />
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Cancel", "Cancel", new { id = item.InterventionId });<br />
+                    }
+                }
+            }            
+        </td>
+    </tr>
+}
+
+</table>

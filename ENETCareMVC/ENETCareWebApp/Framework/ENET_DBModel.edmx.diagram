@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="92ef4f19d85e499595ecdfd72eb30f65" Name="Diagram1">
+        <EntityTypeShape EntityType="ENETCareModel.ENET_Client" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_District" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_Intervention" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_InterventionType" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_Manager" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_SiteEngineer" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_State" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ENETCareModel.ENET_User" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="ENETCareModel.FK_Client_District" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Intervention_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Intervention_District" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Manager_District" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_SiteEngineer_District" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Intervention_ApprovedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Intervention_InterventionType" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Intervention_ProposedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Intervention_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_Manager_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ENETCareModel.FK_SiteEngineer_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
